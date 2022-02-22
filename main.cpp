@@ -3,6 +3,7 @@
 #include <QApplication>
 
 #ifdef _WIN32
+#include <WinSock2.h>
 void startup()
 {
 	WSAData wsaData;
