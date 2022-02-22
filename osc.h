@@ -56,7 +56,7 @@ public:
 	Transmitter();
 	~Transmitter();
 
-	void open();
+	void open(char const *hostname);
 	void close();
 
 	void send_bool(const std::string &addr, bool val);
@@ -77,7 +77,7 @@ public:
 	Receiver();
 	~Receiver();
 	Listener *set_listener(Listener *listener);
-	void open();
+	void open(char const *hostname);
 	void close();
 };
 

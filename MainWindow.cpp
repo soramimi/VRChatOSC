@@ -65,8 +65,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 	osc_rx_.set_listener(&osc_listener_);
 
-	osc_tx_.open();
-	osc_rx_.open();
+	char const *hostname = "127.0.0.1";
+	osc_tx_.open(hostname);
+	osc_rx_.open(hostname);
 }
 
 MainWindow::~MainWindow()

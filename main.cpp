@@ -1,13 +1,29 @@
 
 #include "MainWindow.h"
 #include <QApplication>
-#include <WinSock2.h>
 
-
-int main(int argc, char *argv[])
+#ifdef _WIN32
+void startup()
 {
 	WSAData wsaData;
 	WSAStartup(MAKEWORD(2,0), &wsaData);
+}
+void cleanup()
+{
+	WSACleanup();
+}
+#else
+void startup()
+{
+}
+void cleanup()
+{
+}
+#endif
+
+int main(int argc, char *argv[])
+{
+	startup();
 
 	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
@@ -16,6 +32,6 @@ int main(int argc, char *argv[])
 	w.show();
 	auto r = a.exec();
 
-	WSACleanup();
+	cleanup();
 	return r;
 }

@@ -1,7 +1,19 @@
 
 #include "osc.h"
-#include <WinSock2.h>
 #include <thread>
+
+#ifdef _WIN32
+#include <WinSock2.h>
+
+#else
+#include <netdb.h>
+#include <netinet/in.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
+#define closesocket ::close
+#define ioctlsocket ::ioctl
+#define IN_ADDR in_addr
+#endif
 
 namespace {
 
@@ -10,7 +22,6 @@ bool get_host_by_name(const char *name, IN_ADDR *out)
 	struct hostent *he = nullptr;
 #if defined(_WIN32) || defined(__APPLE__)
 	he = ::gethostbyname(name);
-
 #else
 	int err = 0;
 	char buf[2048];
@@ -44,7 +55,7 @@ osc::Transmitter::~Transmitter()
 	delete m;
 }
 
-void osc::Transmitter::open()
+void osc::Transmitter::open(char const *hostname)
 {
 	close();
 
@@ -52,7 +63,7 @@ void osc::Transmitter::open()
 
 	m->addr.sin_family = AF_INET;
 	m->addr.sin_port = htons(9000);
-	get_host_by_name("127.0.0.1", &m->addr.sin_addr);
+	get_host_by_name(hostname, &m->addr.sin_addr);
 }
 
 void osc::Transmitter::close()
@@ -234,7 +245,7 @@ void osc::Receiver::run()
 	}
 }
 
-void osc::Receiver::open()
+void osc::Receiver::open(char const *hostname)
 {
 	close();
 
@@ -242,7 +253,7 @@ void osc::Receiver::open()
 
 	m->addr.sin_family = AF_INET;
 	m->addr.sin_port = htons(9001);
-	m->addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+	get_host_by_name(hostname, &m->addr.sin_addr);
 
 	start();
 }
