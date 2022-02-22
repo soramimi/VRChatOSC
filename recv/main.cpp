@@ -1,6 +1,7 @@
 
 #include "../osclib/osc.h"
 #include "../osclib/sock.h"
+#include <cstring>
 #include <signal.h>
 #include <thread>
 
@@ -13,7 +14,7 @@ void onSIGINT(int)
 
 void msleep(int n)
 {
-	std::this_thread::sleep_for(std::chrono::microseconds(n));
+	std::this_thread::sleep_for(std::chrono::milliseconds(n));
 }
 
 void dump(char const *ptr, int len)

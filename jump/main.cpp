@@ -5,7 +5,7 @@
 
 void msleep(int n)
 {
-	std::this_thread::sleep_for(std::chrono::microseconds(n));
+	std::this_thread::sleep_for(std::chrono::milliseconds(n));
 }
 
 int main()
@@ -14,10 +14,9 @@ int main()
 
 	osc::Transmitter tx;
 	tx.open("127.0.0.1");
-	msleep(10);
 
 	tx.send_int("/input/Jump", 1);
-	msleep(10);
+	msleep(30);
 	tx.send_int("/input/Jump", 0);
 
 	tx.close();

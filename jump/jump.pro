@@ -6,6 +6,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 win32:LIBS += -lws2_32
+unix:LIBS += -lpthread
 
 SOURCES += \
 	../osclib/osc.cpp \
