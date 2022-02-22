@@ -1,5 +1,6 @@
 
 #include "osc.h"
+#include <cstring>
 #include <thread>
 
 #ifdef _WIN32
