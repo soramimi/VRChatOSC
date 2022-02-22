@@ -1,7 +1,20 @@
-#include "MainWindow.h"
-#include "ui_MainWindow.h"
-#include <chrono>
+
+#include "../osclib/osc.h"
+#include "../osclib/sock.h"
+#include <signal.h>
 #include <thread>
+
+bool interrupted = false;
+
+void onSIGINT(int)
+{
+	interrupted = true;
+}
+
+void msleep(int n)
+{
+	std::this_thread::sleep_for(std::chrono::microseconds(n));
+}
 
 void dump(char const *ptr, int len)
 {
@@ -36,17 +49,19 @@ void dump(char const *ptr, int len)
 	}
 }
 
-MainWindow::MainWindow(QWidget *parent)
-	: QMainWindow(parent)
-	, ui(new Ui::MainWindow)
+int main()
 {
-	ui->setupUi(this);
+	sock::startup();
 
-	osc_listener_.received = [](char const *ptr, int len){
+	signal(SIGINT, onSIGINT);
+
+	osc::Listener listener;
+
+	listener.received = [](char const *ptr, int len){
 		dump(ptr, len);
 	};
 
-	osc_listener_.value = [](std::string const &addr, osc::Value const &value){
+	listener.value = [](std::string const &addr, osc::Value const &value){
 		switch (value.type()) {
 		case osc::Value::Type::Void:
 			fprintf(stderr, "void\n");
@@ -63,23 +78,17 @@ MainWindow::MainWindow(QWidget *parent)
 		}
 	};
 
-	osc_rx_.set_listener(&osc_listener_);
+	osc::Receiver rx;
+	rx.set_listener(&listener);
+	rx.open("127.0.0.1");
 
-	char const *hostname = "127.0.0.1";
-	osc_tx_.open(hostname);
-	osc_rx_.open(hostname);
-}
+	while (1) {
+		if (interrupted) break;
+		msleep(10);
+	}
 
-MainWindow::~MainWindow()
-{
-	osc_tx_.close();
-	osc_rx_.close();
-	delete ui;
-}
+	rx.close();
 
-void MainWindow::on_pushButton_jump_clicked()
-{
-	osc_tx_.send_int("/input/Jump", 1);
-	std::this_thread::sleep_for(std::chrono::milliseconds(100));
-	osc_tx_.send_int("/input/Jump", 0);
+	sock::cleanup();
+	return 0;
 }
