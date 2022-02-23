@@ -208,6 +208,14 @@ void osc::Receiver::run()
 				char c = buffer[pos];
 				pos+= 3;
 				switch (c) {
+				case 'T':
+					value.type_ = Value::Type::Bool;
+					value.v.b = true;
+					break;
+				case 'F':
+					value.type_ = Value::Type::Bool;
+					value.v.b = false;
+					break;
 				case 'i':
 					value.type_ = Value::Type::Int;
 					if (pos + sizeof(int32_t) <= end) {
@@ -228,13 +236,15 @@ void osc::Receiver::run()
 						}
 					}
 					break;
-				case 'T':
-					value.type_ = Value::Type::Bool;
-					value.v.b = true;
-					break;
-				case 'F':
-					value.type_ = Value::Type::Bool;
-					value.v.b = false;
+				case 's':
+					value.type_ = Value::Type::String;
+					{
+						int len;
+						for (len = 0; pos + len < sizeof(buffer); len++) {
+							if (!buffer[pos + len]) break;
+						}
+						value.v_s.assign(buffer + pos, len);
+					}
 					break;
 				}
 

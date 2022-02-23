@@ -15,6 +15,7 @@ public:
 		Bool,
 		Int,
 		Float,
+		String,
 	};
 private:
 	Type type_ = Type::Void;
@@ -23,6 +24,7 @@ private:
 		int32_t i;
 		float f;
 	} v;
+	std::string v_s;
 public:
 	Type type() const
 	{
@@ -41,6 +43,11 @@ public:
 	float float_value() const
 	{
 		return v.f;
+	}
+
+	std::string string_value() const
+	{
+		return v_s;
 	}
 };
 

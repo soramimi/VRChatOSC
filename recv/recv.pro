@@ -9,10 +9,12 @@ win32:LIBS += -lws2_32
 unix:LIBS += -lpthread
 
 SOURCES += \
+	../misc/print.cpp \
 	../osclib/osc.cpp \
 	../osclib/sock.cpp \
 	main.cpp
 
 HEADERS += \
+	../misc/print.h \
 	../osclib/osc.h \
 	../osclib/sock.h
