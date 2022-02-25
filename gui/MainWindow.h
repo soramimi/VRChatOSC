@@ -15,11 +15,13 @@ private:
 	osc::Transmitter osc_tx_;
 	osc::Receiver osc_rx_;
 	osc::Listener osc_listener_;
+	QString current_avtr_;
 public:
 	MainWindow(QWidget *parent = nullptr);
 	~MainWindow();
 private slots:
 	void on_pushButton_jump_pressed();
 	void on_pushButton_jump_released();
+	void onCtrlT();
 };
 #endif // MAINWINDOW_H
