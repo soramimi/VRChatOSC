@@ -8,6 +8,11 @@ win32:LIBS += -lws2_32
 SOURCES += \
 	../misc/print.cpp \
 	../osclib/sock.cpp \
+	AbstractParameterWidget.cpp \
+	ParameterBoolWidget.cpp \
+	ParameterFloatWidget.cpp \
+	ParameterIntWidget.cpp \
+	joinpath.cpp \
 	main.cpp \
 	MainWindow.cpp \
 	../osclib/osc.cpp
@@ -15,9 +20,18 @@ SOURCES += \
 HEADERS += \
 	../misc/print.h \
 	../osclib/sock.h \
+	AbstractParameterWidget.h \
 	MainWindow.h \
-	../osclib/osc.h
+	../osclib/osc.h \
+	ParameterBoolWidget.h \
+	ParameterFloatWidget.h \
+	ParameterIntWidget.h \
+	joinpath.h \
+	jstream.h
 
 FORMS += \
-	MainWindow.ui
+	MainWindow.ui \
+	ParameterBoolWidget.ui \
+	ParameterFloatWidget.ui \
+	ParameterIntWidget.ui
 

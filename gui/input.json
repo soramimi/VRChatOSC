@@ -1,0 +1,213 @@
+{
+  "parameters": [
+    {
+      "name": "Move forwards (1) or Backwards (-1)",
+      "input": {
+        "address": "/input/Vertical",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Move right (1) or left (-1)",
+      "input": {
+        "address": "/input/Horizontal",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Look Left and Right. Smooth in Desktop, VR will do a snap-turn when the value is 1 if Comfort Turning is on.",
+      "input": {
+        "address": "/input/LookHorizontal",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Use held item - not sure if this works",
+      "input": {
+        "address": "/input/UseAxisRight",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Grab item - not sure if this works",
+      "input": {
+        "address": "/input/GrabAxisRight",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Move a held object forwards (1) and backwards (-1)",
+      "input": {
+        "address": "/input/MoveHoldFB",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "/input/SpinHoldCwCcw",
+      "input": {
+        "address": "Spin a held object Clockwise or Counter-Clockwise",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Spin a held object Up or Down",
+      "input": {
+        "address": "/input/SpinHoldUD",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Spin a held object Left or Right",
+      "input": {
+        "address": "/input/SpinHoldLR",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Move forward while this is 1.",
+      "input": {
+        "address": "/input/MoveForward",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Move backwards while this is 1.",
+      "input": {
+        "address": "/input/MoveBackward",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Strafe left while this is 1.",
+      "input": {
+        "address": "/input/MoveLeft",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Strafe right while this is 1.",
+      "input": {
+        "address": "/input/MoveRight",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Turn to the left while this is 1. Smooth in Desktop, VR will do a snap-turn if Comfort Turning is on.",
+      "input": {
+        "address": "/input/LookLeft",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Turn to the right while this is 1. Smooth in Desktop, VR will do a snap-turn if Comfort Turning is on.",
+      "input": {
+        "address": "/input/LookRight",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Jump if the world supports it.",
+      "input": {
+        "address": "/input/Jump",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Walk faster if the world supports it.",
+      "input": {
+        "address": "/input/Run",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Snap-Turn to the left - VR Only.",
+      "input": {
+        "address": "input/ComfortLeft",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Snap-Turn to the right - VR Only.",
+      "input": {
+        "address": "/input/ComfortRight",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Drop the item held in your right hand - VR Only.",
+      "input": {
+        "address": "/input/DropRight",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Use the item highlighted by your right hand - VR Only.",
+      "input": {
+        "address": "/input/UseRight",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Grab the item highlighted by your right hand - VR Only.",
+      "input": {
+        "address": "/input/GrabRight",
+        "type": "Int"
+      }
+    },
+    {
+      "name": Drop the item held in your left hand - VR Only."",
+      "input": {
+        "address": "/input/DropLeft",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Use the item highlighted by your left hand - VR Only.",
+      "input": {
+        "address": "/input/UseLeft",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "",
+      "input": {
+        "address": "",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Grab the item highlighted by your right hand - VR Only.",
+      "input": {
+        "address": "/input/UseRight",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Grab the item highlighted by your left hand - VR Only.",
+      "input": {
+        "address": "/input/GrabLeft",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Turn on Safe Mode.",
+      "input": {
+        "address": "/input/PanicButton",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Toggle QuickMenu On/Off. Will toggle upon receiving '1' if it's currently '0'.",
+      "input": {
+        "address": "/input/QuickMenuToggleLeft",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Toggle QuickMenu On/Off. Will toggle upon receiving '1' if it's currently '0'.",
+      "input": {
+        "address": "/input/QuickMenuToggleRight",
+        "type": "Int"
+      }
+    }
+}
