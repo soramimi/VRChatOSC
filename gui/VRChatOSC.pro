@@ -12,6 +12,8 @@ SOURCES += \
 	ParameterBoolWidget.cpp \
 	ParameterFloatWidget.cpp \
 	ParameterIntWidget.cpp \
+	SelectUserDialog.cpp \
+	VRCParameterScrollArea.cpp \
 	joinpath.cpp \
 	main.cpp \
 	MainWindow.cpp \
@@ -26,6 +28,8 @@ HEADERS += \
 	ParameterBoolWidget.h \
 	ParameterFloatWidget.h \
 	ParameterIntWidget.h \
+	SelectUserDialog.h \
+	VRCParameterScrollArea.h \
 	joinpath.h \
 	jstream.h
 
@@ -33,5 +37,9 @@ FORMS += \
 	MainWindow.ui \
 	ParameterBoolWidget.ui \
 	ParameterFloatWidget.ui \
-	ParameterIntWidget.ui
+	ParameterIntWidget.ui \
+	SelectUserDialog.ui
+
+DISTFILES += \
+	input.json
 

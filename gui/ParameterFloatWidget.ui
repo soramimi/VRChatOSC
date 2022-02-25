@@ -75,6 +75,12 @@
        <height>0</height>
       </size>
      </property>
+     <property name="maximum">
+      <double>1.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
     </widget>
    </item>
   </layout>
