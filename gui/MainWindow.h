@@ -15,6 +15,7 @@ private:
 	Ui::MainWindow *ui;
 	struct Private;
 	Private *m;
+	static std::vector<VRCParameter> parseParametersJson(const QByteArray &ba);
 	static std::vector<VRCParameter> parseParametersJson(const QString path);
 public:
 	MainWindow(QWidget *parent = nullptr);

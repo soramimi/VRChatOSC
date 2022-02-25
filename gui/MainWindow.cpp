@@ -78,62 +78,69 @@ void MainWindow::onAvatarChanged(QString const &avtr)
 	ui->scrollArea_avatar_parameters->makeContents(m->avatar_params);
 }
 
-std::vector<VRCParameter> MainWindow::parseParametersJson(QString const path)
+std::vector<VRCParameter> MainWindow::parseParametersJson(QByteArray const &ba)
 {
 	std::vector<VRCParameter> params;
+	if (!ba.isEmpty()) {
+		char const *begin = ba.data();
+		char const *end = begin + ba.size();
+		if (begin + 3 < end) {
+			if (memcmp(begin, "\xef\xbb\xbf", 3) == 0) {
+				begin += 3;
+			}
+		}
+		std::string avtrname;
+		VRCParameter param;
+		jstream::Reader r(begin, end);
+		auto ValueType = [](std::string const &t){
+			if (stricmp(t.c_str(), "bool") == 0) {
+				return osc::Value::Type::Bool;
+			} else if (stricmp(t.c_str(), "Int") == 0) {
+				return osc::Value::Type::Int;
+			} else if (stricmp(t.c_str(), "Float") == 0) {
+				return osc::Value::Type::Float;
+			}
+			return osc::Value::Type::Void;
+		};
+		while (r.next()) {
+			if (r.match("{name")) {
+				avtrname = r.string();
+			} else if (r.match("{parameters[{")) {
+				if (r.state() == jstream::StartObject) {
+					param = {};
+				}
+			} else if (r.match("{parameters[")) {
+				if (r.state() == jstream::EndObject) {
+					params.push_back(param);
+					param = {};
+				}
+			} else if (r.match("{parameters[{name")) {
+				param.name = r.string();
+			} else if (r.match("{parameters[{input{address")) {
+				param.input.address = r.string();
+			} else if (r.match("{parameters[{input{type")) {
+				param.input.type = ValueType(r.string());
+			} else if (r.match("{parameters[{output{address")) {
+				param.output.address = r.string();
+			} else if (r.match("{parameters[{output{type")) {
+				param.output.type = ValueType(r.string());
+			}
+		}
+	}
+	return params;
+}
+
+std::vector<VRCParameter> MainWindow::parseParametersJson(QString const path)
+{
 	QFileInfo info(path);
 	if (info.isFile()) {
 		QFile file(path);
 		file.open(QFile::ReadOnly);
 		QByteArray ba = file.readAll();
-		if (!ba.isEmpty()) {
-			char const *begin = ba.data();
-			char const *end = begin + ba.size();
-			if (begin + 3 < end) {
-				if (memcmp(begin, "\xef\xbb\xbf", 3) == 0) {
-					begin += 3;
-				}
-			}
-			std::string avtrname;
-			VRCParameter param;
-			jstream::Reader r(begin, end);
-			auto ValueType = [](std::string const &t){
-				if (stricmp(t.c_str(), "bool") == 0) {
-					return osc::Value::Type::Bool;
-				} else if (stricmp(t.c_str(), "Int") == 0) {
-					return osc::Value::Type::Int;
-				} else if (stricmp(t.c_str(), "Float") == 0) {
-					return osc::Value::Type::Float;
-				}
-				return osc::Value::Type::Void;
-			};
-			while (r.next()) {
-				if (r.match("{name")) {
-					avtrname = r.string();
-				} else if (r.match("{parameters[{")) {
-					if (r.state() == jstream::StartObject) {
-						param = {};
-					}
-				} else if (r.match("{parameters[")) {
-					if (r.state() == jstream::EndObject) {
-						params.push_back(param);
-						param = {};
-					}
-				} else if (r.match("{parameters[{name")) {
-					param.name = r.string();
-				} else if (r.match("{parameters[{input{address")) {
-					param.input.address = r.string();
-				} else if (r.match("{parameters[{input{type")) {
-					param.input.type = ValueType(r.string());
-				} else if (r.match("{parameters[{output{address")) {
-					param.output.address = r.string();
-				} else if (r.match("{parameters[{output{type")) {
-					param.output.type = ValueType(r.string());
-				}
-			}
-		}
+		return parseParametersJson(ba);
+
 	}
-	return params;
+	return {};
 }
 
 void MainWindow::parameterValueChanged(const QString &address, QVariant const &value)

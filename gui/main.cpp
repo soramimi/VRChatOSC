@@ -11,7 +11,8 @@ int main(int argc, char *argv[])
 {
 	sock::startup();
 
-	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+//	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+//	QCoreApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
 
 	QApplication a(argc, argv);
 

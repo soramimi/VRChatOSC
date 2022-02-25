@@ -43,3 +43,6 @@ FORMS += \
 DISTFILES += \
 	input.json
 
+RESOURCES += \
+	resources.qrc
+
