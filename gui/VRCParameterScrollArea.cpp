@@ -27,7 +27,7 @@ void VRCParameterScrollArea::makeContents(std::vector<VRCParameter> const &param
 	setWidget(contents);
 
 	QVBoxLayout *verticalLayout = new QVBoxLayout(contents);
-	verticalLayout->setMargin(0);
+//	verticalLayout->setMargin(0);
 	verticalLayout->setSpacing(0);
 
 	for (VRCParameter const &param : params) {

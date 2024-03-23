@@ -135,9 +135,8 @@ void osc::Transmitter::send_float(const std::string &addr, float val)
 	tmp[i++] = 0;
 
 	uint8_t const *s = (uint8_t const *)&val;
-	uint8_t *d = (uint8_t *)tmp + i;
-	for (int i = 0; i < 4; i++) {
-		d[i] = s[3 - i];
+	for (int j = 0; j < 4; j++) {
+		tmp[i++] = s[3 - j];
 	}
 
 	sendto(m->sock, tmp, i, 0, (struct sockaddr *)&m->addr, sizeof(m->addr));
